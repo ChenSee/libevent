@@ -493,9 +493,14 @@ arc4random(void)
 }
 #endif
 
+#if defined(__x86_64__) || defined(__aarch64__)
+void arc4random_buf(void *_buf, size_t n)
+{
+#else
 ARC4RANDOM_EXPORT void
 arc4random_buf(void *_buf, size_t n)
 {
+#endif
 	unsigned char *buf = _buf;
 	_ARC4_LOCK();
 	arc4_stir_if_needed();
